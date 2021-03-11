@@ -1,0 +1,249 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  background-color: #faf9f8;
+  font-family: 'Segoe UI Regular';
+}
+
+body {
+  background-color: #527dc1;
+  padding: 10px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.input-group-custom {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.input-group-custom .input-core {
+  height: 40px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.input-group-custom .input-core:focus {
+  outline: none;
+  border: 2px dotted #00b7ff;
+  padding-left: 10px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.input-group-custom .input-group-custom-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.btn-custom {
+  border: none;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.btn-custom:focus {
+  outline: none;
+}
+
+.btn-custom.validate {
+  background-color: #0076a5;
+  color: white;
+}
+
+.btn-container {
+  margin-top: 10px;
+  text-align: right;
+}
+
+.image-background {
+  position: absolute;
+  height: 90%;
+  right: 10%;
+  top: 5%;
+  opacity: 0.5;
+  z-index: 1;
+}
+
+.image-background img {
+  height: 100%;
+}
+
+.login-body {
+  z-index: 2;
+  background-color: white;
+  margin-top: 7em;
+  width: 60%;
+  min-height: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.login-body .login-divider {
+  width: 100%;
+  height: 30px;
+  margin: 20px 0;
+  text-align: center;
+  font-size: 28px;
+  position: relative;
+}
+
+.login-body .login-divider:after {
+  content: '';
+  width: 100%;
+  border-bottom: solid 1px #57585C;
+  position: absolute;
+  left: 0;
+  top: 80%;
+  z-index: 1;
+}
+
+.login-body .login-divider h3 {
+  background-color: white;
+  /* Same as the parents Background */
+  width: auto;
+  display: inline-block;
+  z-index: 3;
+  padding: 0 20px 0 20px;
+  color: black;
+  position: relative;
+  font-family: calibri;
+  font-weight: lighter;
+  margin: 0;
+}
+
+.login-body .login-form-container {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  padding: 10% 30% 20% 10%;
+}
+
+.login-body .login-design-container {
+  width: 30%;
+  background-color: #9fcdff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+}
+
+.login-body .login-design-container .login-design-background {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 70%;
+}
+
+.login-body .login-design-container .login-design-background img {
+  width: 100%;
+}
+
+.login-body .login-design-container .login-design-giant {
+  position: absolute;
+  top: 0;
+  left: -50%;
+}
+
+.login-body .login-design-container .login-design-giant img {
+  width: 100%;
+}
+
+.btn-container-inline {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.social-auth-button-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border-radius: 2px;
+  color: white;
+  padding: 3px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.social-auth-button-container .icons-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 15%;
+}
+
+.social-auth-button-container .icons-container img {
+  width: 100%;
+}
+
+.social-auth-button-container button {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  border: none;
+  background-color: unset;
+}
+
+.social-auth-button-container.facebook {
+  background-color: #3a559f;
+}
+
+.social-auth-button-container.facebook:hover {
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  background-color: #1e2c52;
+}
+
+.social-auth-button-container.facebook .icons-container {
+  background-color: white;
+}
+
+.social-auth-button-container.facebook button {
+  color: white;
+}
+
+.social-auth-button-container.google {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-left: 10px;
+  border: 1px solid black;
+}
+
+.social-auth-button-container.google .icons-container {
+  width: 50%;
+}
+/*# sourceMappingURL=login.css.map */
