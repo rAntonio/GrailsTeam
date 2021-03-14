@@ -6,7 +6,7 @@ import static org.springframework.http.HttpStatus.*
 
 @Secured('ROLE_ADMIN')
 class AnnonceController {
-
+    CustomAnnonceService customAnnonceService
     AnnonceService annonceService
 
     def index(Integer max) {
@@ -19,7 +19,7 @@ class AnnonceController {
     }
 
     def create() {
-        respond new Annonce(params)
+        respond new Annonce(params),model: [userList: User.list()]
     }
 
     def save(Annonce annonce) {
@@ -28,7 +28,13 @@ class AnnonceController {
             return
         }
 
+        def file= request.getFiles("image")
+        String basePath = grailsApplication.config.annonces.illustrations.path
         try {
+            for (int i=0; i<file.size(); i++) {
+                String fileName = customAnnonceService.uploaderFichier(file.get(i), basePath)
+                annonce.addToIllustrations(new Illustration(filename: fileName))
+            }
             annonceService.save(annonce)
         } catch (ValidationException e) {
             respond annonce.errors, view:'create'
@@ -45,7 +51,7 @@ class AnnonceController {
     }
 
     def edit(Long id) {
-        respond annonceService.get(id), model: [userList: User.list(), baseUrl: grailsApplication.config.annonces.illustrations.url]
+        respond annonceService.get(id),  model: [userList: User.list(), baseUrl: grailsApplication.config.annonces.illustrations.url]
     }
 
     def update() {

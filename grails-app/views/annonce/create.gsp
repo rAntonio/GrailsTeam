@@ -25,9 +25,41 @@
                 </g:eachError>
             </ul>
             </g:hasErrors>
-            <g:form controller="annonce" action="save" method="POST">
+            <g:form controller="annonce" action="save" method="POST" enctype="multipart/form-data">
                 <fieldset class="form">
-                    <f:all bean="annonce"/>
+                    <div>
+                        <div class="fieldcontain required">
+                            <label for="titre">Titre
+                                <span class="required-indicator">*</span>
+                            </label>
+                            <input type="text" name="title"/>
+                        </div>
+
+                        <div class="fieldcontain required">
+                            <label for="description">Description
+                                <span class="required-indicator">*</span>
+                            </label>
+                            <input type="text" name="description"/>
+
+                        </div>
+
+                        <div class="fieldcontain required">
+                            <label for="Prix">Prix
+                                <span class="required-indicator">*</span>
+                            </label>
+                            <input type="number" name="price"/>
+                        </div>
+                        <div class="fieldcontain">
+                            <label for="file">Upload</label>
+                            <input style="display: inline" type="file" multiple name="image" id="file"/>
+                        </div>
+                        <div class="fieldcontain required">
+                            <label for="author">Author
+                                <span class="required-indicator">*</span>
+                            </label>
+                            <g:select name="author.id" from="${userList}" optionKey="id" optionValue="username" />
+                        </div>
+                    </div>
                 </fieldset>
                 <fieldset class="buttons">
                     <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />

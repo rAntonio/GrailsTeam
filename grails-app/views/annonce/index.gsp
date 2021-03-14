@@ -33,6 +33,7 @@
                     <tbody>
                     <g:each in="${annonceList}">
                         <tr>
+                            <td><a href="${createLink(controller:"annonce",action:"show",id: "${it.id}")}">${it.id}</a></td>
                             <td>${it.title}</td>
                             <td>${it.description}</td>
                             <td>${it.price}</td>

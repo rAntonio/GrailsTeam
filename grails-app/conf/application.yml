@@ -65,6 +65,9 @@ grails:
             maxsize: 1000
     controllers:
         defaultScope: singleton
+        upload:
+            maxFileSize: 5000000
+            maxRequestSize: 5000000
     converters:
         encoding: UTF-8
     views:
@@ -130,5 +133,5 @@ server:
     port: 8081
 annonces:
     illustrations:
-        path:  "C:/Users/gregg/IdeaProjects/projet_itu_2020_2021/grails-app/assets/images/"
-        url: "http://localhost:8081/projet/assets/"
+        path:  "E:/asa/fianarana/Gali/grails-team/grails-team/grails-app/assets/images"
+        url: "http://localhost:8081/assets/"

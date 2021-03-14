@@ -19,7 +19,17 @@
             <g:if test="${flash.message}">
             <div class="message" role="status">${flash.message}</div>
             </g:if>
-            <f:display bean="annonce" />
+            <div>
+                <p> titre : ${annonce.title} </p>
+                <p> description : ${annonce.description}</p>
+                <p> price : ${annonce.price}</p>
+                <p>Utilisateur : ${annonce.author.username}</p>
+                <p>
+                    <g:each in="${annonce.illustrations}">
+                        <asset:image src="${it.filename}"/>
+                    </g:each>
+                </p>
+            </p>
             <g:form resource="${this.annonce}" method="DELETE">
                 <fieldset class="buttons">
                     <g:link class="edit" action="edit" resource="${this.annonce}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
