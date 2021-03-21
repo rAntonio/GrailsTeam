@@ -1,0 +1,175 @@
+{
+	"info": {
+		"_postman_id": "d097968b-08fa-4f18-b8c0-04cc24262245",
+		"name": "Grails API Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Annonce",
+			"item": [
+				{
+					"name": "GET Annonces",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/api/annonces",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"annonces"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Annonce (POST)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"id\": 15,\r\n        \"title\": \"Nouvelle annonce 15\",\r\n        \"dateCreated\": \"2021-03-21T13:28:23Z\",\r\n        \"price\": 121.0,\r\n        \"lastUpdated\": \"2021-03-21T13:28:23Z\",\r\n        \"illustrations\": [\r\n            {\r\n                \"id\": 1\r\n            },\r\n            {\r\n                \"id\": 2\r\n            },\r\n            {\r\n                \"id\": 5\r\n            },\r\n            {\r\n                \"id\": 3\r\n            },\r\n            {\r\n                \"id\": 4\r\n            }\r\n        ],\r\n        \"description\": \"Description de l'annonce 15\",\r\n        \"author\": {\r\n            \"id\": 1\r\n        }\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/annonces",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"annonces"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Annonce",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8081/api/annonce/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"annonce",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Annonce (PUT)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login to get Authorization",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": " JSESSIONID=C8A35D64249BB2F4BF71E64330E4D161",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\" : \"admin\",\r\n    \"password\" : \"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
