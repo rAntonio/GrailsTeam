@@ -2,6 +2,7 @@ package projet_itu_2020_2021
 
 import com.mbds.grails.Annonce
 import com.mbds.grails.Illustration
+import com.mbds.grails.Menu
 import com.mbds.grails.Role
 import com.mbds.grails.User
 import com.mbds.grails.UserRole
@@ -19,6 +20,9 @@ class BootStrap {
         def modUser = new User(username: "moderateur", password: "password").save()
         def userUser = new User(username: "client", password: "password").save()
 
+        def annonceMenu = new Menu(name : "Annonce", href: "/Annonce/").save()
+        def illustrationMenu = new Menu(name : "Illustrations", href: "/Illustration/").save()
+        def userMenu = new Menu(name : "User", href: "/User/").save()
         UserRole.create adminUser, adminRole, true
         UserRole.create(modUser, modRole, true)
         UserRole.create(userUser, userRole, true)
@@ -30,7 +34,8 @@ class BootStrap {
                         def annonceInstance = new Annonce(
                                 title: "Titre de l'annonce $annonceIdx",
                                 description: "Description de l'annonce $annonceIdx",
-                                price: 100 * annonceIdx
+                                price: 100 * annonceIdx,
+                                etat : 0
                         )
                         (1..5).each {
                             annonceInstance.addToIllustrations(new Illustration(filename: "grails.svg"))

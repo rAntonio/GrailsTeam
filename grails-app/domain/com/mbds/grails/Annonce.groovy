@@ -8,7 +8,7 @@ class Annonce {
 
     Date dateCreated
     Date lastUpdated
-
+    int etat
     static hasMany = [illustrations: Illustration]
 
     static belongsTo = [author: User]
@@ -17,6 +17,7 @@ class Annonce {
         title       nullable: false, blank: false
         description nullable: false, blank: false
         price       min: 0D
+        etat        nullable:false
     }
 
     static mapping = {

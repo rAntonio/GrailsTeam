@@ -8,10 +8,11 @@ import static org.springframework.http.HttpStatus.*
 class AnnonceController {
     CustomAnnonceService customAnnonceService
     AnnonceService annonceService
+    MenuService menuService
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond annonceService.list(params), model:[annonceCount: annonceService.count()]
+        respond annonceService.list(params), model:[annonceCount: annonceService.count(),menuList : Menu.list()]
     }
 
     def show(Long id) {
