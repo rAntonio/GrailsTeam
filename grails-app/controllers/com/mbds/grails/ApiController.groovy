@@ -14,45 +14,82 @@ class ApiController {
 //    GET / PUT / PATCH / DELETE -- in progress
     //url : localhost:8081/api/annonce/{id}
     def annonce() {
+        def annonceInstance;
         switch (request.getMethod()) {
         //Postman API : Annonce/Get Annonce
             case "GET":
                 if (!params.id)
                     return response.status = HttpServletResponse.SC_BAD_REQUEST
-                def annonceInstance = Annonce.get(params.id)
+                annonceInstance = Annonce.get(params.id)
                 if (!annonceInstance)
                     return response.status = HttpServletResponse.SC_NOT_FOUND
                 serializeData(annonceInstance, request.getHeader("Accept"));
                 break
-        //Postman API : Annonce/Update Annonce (PUT) -- Not tested yet
+        //Postman API : Annonce/Update Annonce (PUT)
             case "PUT":
-                if (!params.id) return response.status = HttpServletResponse.SC_BAD_REQUEST
-                String query = "update Annonce set "
-                def paramsMap = [:]
-                paramsMap.id = Long.parseLong(params.id)
-                if (params.title && params.title != "") {
-                    query += "title=(:title) "
-                    paramsMap.title = params.title
-                }
-                if (params.price && params.price != "") {
-                    query += "price=(:price) "
-                    paramsMap.price = params.price
-                }
-                if (params.description && params.description != "") {
-                    query += "description=(:description) "
-                    paramsMap.description = params.description
-                }
-                if (params.author && params.author != "") {
-                    query += "authorId=(:author) "
-                    paramsMap.author = params.author.id
-                }
-                query += "where id=(:id)"
-                Annonce.executeUpdate(query, paramsMap)
-                return response.status = HttpServletResponse.SC_OK
+                print params.id
+                if (!params.id)
+                    return response.status = HttpServletResponse.SC_BAD_REQUEST
+                annonceInstance = Annonce.get(params.id)
+
+                //updated field
+                    if (request.JSON.title && request.JSON.price && request.JSON.description && request.JSON.author) {
+                        annonceInstance.title = request.JSON.title
+                        annonceInstance.price = request.JSON.price
+                        annonceInstance.description = request.JSON.description
+                        def author = User.findById(request.JSON.author.id)
+                        if(author)
+                            annonceInstance.author = author
+                        else
+                            return response.status = HttpServletResponse.SC_BAD_REQUEST
+                        annonceInstance.lastUpdated = new Date();
+                        annonceService.save(annonceInstance);
+                        return response.status = HttpServletResponse.SC_OK
+                    }
+                return response.status = HttpServletResponse.SC_BAD_REQUEST
                 break;
             case "PATCH":
+                if (!params.id)
+                    return response.status = HttpServletResponse.SC_BAD_REQUEST
+                String query = "update Annonce set "
+                def paramsMap = [:]
+                def valid = false
+                paramsMap.id = Long.parseLong(params.id)
+
+                //updated field
+                    if (request.JSON.title && request.JSON.title != "") {
+                        query += "title=(:title) "
+                        paramsMap.title = request.JSON.title
+                        valid = true
+                    }
+                    if (request.JSON.price && request.JSON.price != "") {
+                        query += "price=(:price) "
+                        paramsMap.price = request.JSON.price
+                        valid = true
+                    }
+                    if (request.JSON.description && request.JSON.description != "") {
+                        query += "description=(:description) "
+                        paramsMap.description = request.JSON.description
+                        valid = true
+                    }
+                    if (request.JSON.author && request.JSON.author != "") {
+                        query += "authorId=(:author) "
+                        paramsMap.author = request.JSON.author.id
+                        valid = true
+                    }
+                if(valid) {
+//                    paramsMap.lastUpdated = new Date();
+                    query += "where id=(:id)"
+                    print Annonce.executeUpdate(query, paramsMap)
+                    return response.status = HttpServletResponse.SC_NO_CONTENT
+                }
+                return response.status = HttpServletResponse.SC_BAD_REQUEST
                 break
             case "DELETE":
+                if (!params.id)
+                    return response.status = HttpServletResponse.SC_BAD_REQUEST
+                annonceService.delete(Long.parseLong(params.id))
+                return response.status = HttpServletResponse.SC_NO_CONTENT
                 break
             default:
                 return response.status = HttpServletResponse.SC_METHOD_NOT_ALLOWED
