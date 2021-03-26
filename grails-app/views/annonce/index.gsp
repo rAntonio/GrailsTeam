@@ -24,7 +24,12 @@
                         </div>
                         <select class="custom-input-search-select-theme-name">
                             <g:each in="${menuList}">
-                                <option value="${it.href}">${it.name}</option>
+                                <g:if test="${it.name ==  entityName }">
+                                    <option selected value="${it.href}">${it.name}</option>
+                                </g:if>
+                                <g:else>
+                                    <option value="${it.href}">${it.name}</option>
+                                </g:else>
                             </g:each>
                         </select>
                     </div>
@@ -34,7 +39,7 @@
                 </div>
             </div>
             <div class="section-controller-add-bar">
-                <a href="" class="btn btn-primary btn-cust">Add To ${entityName}</a>
+                <a href="create" class="btn btn-primary btn-cust">Add To ${entityName}</a>
             </div>
         </div>
         <!--<a href="#list-annonce" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>

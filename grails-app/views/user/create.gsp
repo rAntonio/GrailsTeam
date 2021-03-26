@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta name="layout" content="main" />
+        <meta name="layout" content="custom" />
         <g:set var="entityName" value="${message(code: 'user.label', default: 'User')}" />
         <title><g:message code="default.create.label" args="[entityName]" /></title>
     </head>
@@ -25,9 +25,38 @@
                 </g:eachError>
             </ul>
             </g:hasErrors>
-            <g:form resource="${this.user}" method="POST">
+            <g:form controller="user"  method="POST"  action="save"  enctype="multipart/form-data" >
                 <fieldset class="form">
-                    <f:all bean="user"/>
+                    <div>
+
+                        <div class="fieldcontain">
+                            <label for="file">Upload votre photo</label>
+                            <input style="display: inline" type="file" multiple name="imgage" id="file"/>
+                        </div>
+
+                        <div class="fieldcontain required">
+                            <label for="username">Username
+                                <span class="required-indicator">*</span>
+                            </label><input type="text" name="username" value="" required="" id="username">
+                        </div>
+                        <div class="fieldcontain required">
+                            <label for="password">Password
+                                <span class="required-indicator">*</span>
+                            </label><input type="password" name="password" required="" value="" id="password">
+                        </div>
+                        <div class="fieldcontain">
+                            <label for="passwordExpired">Password Expired</label><input type="hidden" name="_passwordExpired"><input type="checkbox" name="passwordExpired" id="passwordExpired">
+                        </div>
+                        <div class="fieldcontain">
+                            <label for="accountLocked">Account Locked</label><input type="hidden" name="_accountLocked"><input type="checkbox" name="accountLocked" id="accountLocked">
+                        </div>
+                        <div class="fieldcontain">
+                            <label for="accountExpired">Account Expired</label><input type="hidden" name="_accountExpired"><input type="checkbox" name="accountExpired" id="accountExpired">
+                        </div>
+                        <div class="fieldcontain">
+                            <label for="enabled">Enabled</label><input type="hidden" name="_enabled"><input type="checkbox" name="enabled" checked="checked" id="enabled">
+                        </div>
+                   </div>
                 </fieldset>
                 <fieldset class="buttons">
                     <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />

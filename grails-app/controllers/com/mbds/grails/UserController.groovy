@@ -1,17 +1,19 @@
 package com.mbds.grails
 
+import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
 
+@Secured('ROLE_ADMIN')
 class UserController {
-
+    CustomeUserService customeUserService
     UserService userService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond userService.list(params), model:[userCount: userService.count()]
+        respond userService.list(params), model:[userCount: userService.count(),menuList : Menu.list()]
     }
 
     def show(Long id) {
@@ -27,8 +29,16 @@ class UserController {
             notFound()
             return
         }
-
         try {
+            def file= request.getFiles("imgage")
+            String fileName = "profil.png"
+            if(  file != null ){
+                String basePath = grailsApplication.config.annonces.illustrations.path
+                for (int i=0; i<file.size(); i++) {
+                    fileName = customeUserService.uploaderFichier(file.get(i), basePath)
+                }
+                user.img = fileName
+            }
             userService.save(user)
         } catch (ValidationException e) {
             respond user.errors, view:'create'

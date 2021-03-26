@@ -16,14 +16,14 @@ class BootStrap {
         def modRole = new Role(authority: "ROLE_MODO").save()
         def userRole = new Role(authority: "ROLE_USER").save()
 
-        def adminUser = new User(username: "admin", password: "password").save()
-        def modUser = new User(username: "moderateur", password: "password").save()
-        def userUser = new User(username: "client", password: "password").save()
+        def adminUser = new User(username: "admin", password: "password" , img: "profil.png").save()
+        def modUser = new User(username: "moderateur", password: "password", img: "profil.png").save()
+        def userUser = new User(username: "client", password: "password", img: "profil.png").save()
 
         def annonceMenu = new Menu(name : "Annonce", href: "/Annonce/").save()
         def illustrationMenu = new Menu(name : "Illustrations", href: "/Illustration/").save()
         def userMenu = new Menu(name : "User", href: "/User/").save()
-        UserRole.create adminUser, adminRole, true
+        UserRole.create(adminUser, adminRole, true)
         UserRole.create(modUser, modRole, true)
         UserRole.create(userUser, userRole, true)
 
