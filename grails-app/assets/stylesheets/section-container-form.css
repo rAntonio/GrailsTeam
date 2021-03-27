@@ -1,0 +1,129 @@
+.section-container .section-menu{
+    border-left: 1px solid #d3dce0;
+}
+.section-container .section-contenue .section-contenue-form-container{
+    margin : 0 auto;
+    max-width: 768px;
+}
+.section-container .section-contenue .section-contenue-form-container .section-contenue-input{
+    display: flex;
+    flex-direction: column;
+    border-left: 3px solid #d3dce0;
+    padding-left: 40px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 40px ;
+    color :#6a7889;
+    transition: all 0.3s;
+}
+.section-container .section-contenue .section-contenue-form-container .section-contenue-input:focus-within{
+    transition: all 0.3s;
+    border-left: 3px solid #2e75d4;
+}
+.section-container .section-contenue .section-contenue-form-container .section-contenue-input label{
+
+    text-transform: capitalize;
+}
+
+.section-container .section-contenue .section-contenue-form-container .section-contenue-input input.form-contenue-control{
+    outline: none;
+    border-radius: 6px;
+    border : 1px solid #d3dce0;
+    color : #536171;
+    font-size: .875rem;
+    max-height: 2.5rem;
+    padding : .65625rem;
+    box-shadow: inset 0 2px 0 rgba(225 228 232,0.2);
+    background-color: white;
+    transition: all 0.3s;
+    margin-bottom: 10px;
+}
+.section-container .section-contenue .section-contenue-form-container .section-contenue-input input.form-contenue-control:focus {
+    border-color: #2e75d4;
+    transition: all 0.3s;
+}
+.section-container .section-contenue .section-contenue-form-container .section-contenue-input .fields-error{
+    color : red;
+    background-color: rgba(252, 122, 109, 0.53);
+    padding: 10px;
+    border-radius: 2px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.805rem;
+    vertical-align: middle;
+    display: none;
+}
+.section-container .section-contenue .section-contenue-form-container .section-contenue-input .section-contenue-input-descriptor{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.section-container .section-contenue .section-contenue-form-container .section-contenue-input .section-contenue-input-image-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.section-container .section-contenue .section-contenue-form-container .section-contenue-input .section-contenue-input-image-container .section-contenue-input-image-items{
+    outline: none;
+    border-radius: 6px;
+    border : 1px solid #d3dce0;
+    color : #536171;
+    font-size: .875rem;
+    min-width: 15rem;
+    flex:1;
+    box-shadow: inset 0 2px 0 rgba(225 228 232,0.2);
+    background-color: white;
+    margin-right: 50px;
+    transition: all 0.3s;
+    margin-bottom: 20px;
+}
+
+.section-container .section-contenue .section-contenue-form-container .section-contenue-input .section-contenue-input-image-container .section-contenue-input-image-items .section-contenue-input-image-items-title{
+    border-bottom:1px solid #d3dce0;
+    padding : 10px;
+    text-align: right;
+}
+.section-container .section-contenue .section-contenue-form-container .section-contenue-input .section-contenue-input-image-container .section-contenue-input-image-items .section-contenue-input-image-items-title span{
+    color : #1a6848;
+    background-color: #d9f2e4;
+    padding: 2px 5px;
+    border-radius: 2px;
+    font-weight: bold;
+    text-transform: Capitalize;
+    font-size: 0.805rem;
+    vertical-align: middle;
+}
+.section-container .section-contenue .section-contenue-form-container .section-contenue-input .section-contenue-input-image-container .section-contenue-input-image-items .section-contenue-input-image-items-pictures{
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    padding: 40px;
+}
+.section-container .section-contenue .section-contenue-form-container .section-contenue-input .section-contenue-input-image-container .section-contenue-input-image-items .section-contenue-input-image-items-pictures img{
+   width: 30%;
+    max-width: 30%;
+    margin : auto auto;
+}
+
+.not-validate{
+    color : red;
+    background-color: rgba(255,95,80,0.53);
+    padding: 2px 5px;
+    border-radius: 2px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.805rem;
+    vertical-align: middle;
+}
+.validate{
+    color : #1a6848;
+    background-color: #d9f2e4;
+    padding: 2px 5px;
+    border-radius: 2px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.805rem;
+    vertical-align: middle;
+}

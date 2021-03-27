@@ -42,13 +42,7 @@
                 <a href="create" class="btn btn-primary btn-cust">Add To ${entityName}</a>
             </div>
         </div>
-        <!--<a href="#list-annonce" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-        <div class="nav" role="navigation">
-            <ul>
-                <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-                <li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-            </ul>
-        </div> !-->
+
         <div class="section-container">
             <div class="section-menu">a</div>
 
@@ -71,8 +65,8 @@
                     <tbody>
 
                         <g:each in="${annonceList}">
-                        <tr>
-                            <td><input type="checkbox"/></td>
+                        <tr class="tr-link" data-href="${createLink(controller:"annonce",action:"show",id: "${it.id}")}">
+                            <td class="td-checkbox"><input type="checkbox"/></td>
                             <td>${it.title}</td>
                             <td>${entityName}</td>
                             <td>${it.lastUpdated}</td>

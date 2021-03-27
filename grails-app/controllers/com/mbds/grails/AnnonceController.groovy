@@ -60,6 +60,7 @@ class AnnonceController {
         annonce.title = params.title
         annonce.description = params.description
         annonce.price = Double.parseDouble(params.price)
+        annonce.etat=Integer.parseInt(params.etat)
 //        annonce.author = User.get(params.author.id)
         if (annonce == null) {
             notFound()
@@ -75,6 +76,7 @@ class AnnonceController {
         try {
             annonceService.save(annonce)
         } catch (ValidationException e) {
+            e.printStackTrace()
             respond annonce.errors, view:'edit'
             return
         }
