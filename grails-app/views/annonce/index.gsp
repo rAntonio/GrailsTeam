@@ -85,6 +85,9 @@
                         </g:each>
                     </tbody>
                 </table>
+                <div class="pagination">
+                    <g:paginate total="${annonceCount ?: 0}" />
+                </div>
             </div>
         </div>
 

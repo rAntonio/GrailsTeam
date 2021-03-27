@@ -116,15 +116,8 @@ class AnnonceController {
             return
         }
         annonceService.delete(id);
+        redirect action:"index", method:"GET"
 
-        request.withFormat {
-            form {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'annonce.label', default: 'Annonce'), id])
-                println("ato ve ");
-                redirect action:"index", method:"GET"
-            }
-            '*'{ render status: NO_CONTENT }
-        }
     }
 
     protected void notFound() {
