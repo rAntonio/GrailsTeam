@@ -23,7 +23,7 @@
             </div>
 
             <div class="section-controller-add-bar">
-                <a href="${createLink(controller:"annonce",action:"create")}" class="btn btn-primary btn-cust">Add To ${entityName}</a>
+                <a href="${createLink(controller:"annonce",action:"create")}" class="btn btn-primary btn-cust">Ajouter ${entityName}</a>
             </div>
         </div>
         <div class="section-container">
@@ -142,9 +142,9 @@
                                 <span class="validate">Publié</span>
                             </g:else>
                         </div>
-                        <button class="custom-button custom-button-success validator" data-form-id="edit-annonce-form">Update</button>
+                        <button class="custom-button custom-button-success validator" data-form-id="edit-annonce-form">Modifier</button>
                         <div class="notice">
-                            <p>Last saved ${annonce.lastUpdated}</p>
+                            <p>Dernier modification ${annonce.lastUpdated}</p>
                         </div>
                     </div>
                 </div>

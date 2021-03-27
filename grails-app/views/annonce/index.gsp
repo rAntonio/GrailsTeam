@@ -24,12 +24,14 @@
                         </div>
                         <select class="custom-input-search-select-theme-name">
                             <g:each in="${menuList}">
-                                <g:if test="${it.name ==  entityName }">
-                                    <option selected value="${it.href}">${it.name}</option>
+                                <g:if test="${it.name !=  'Illustrations' }">
+                                    <g:if test="${it.name ==  entityName }">
+                                        <option selected value="${it.href}">${it.name}</option>
+                                    </g:if>
+                                    <g:else>
+                                        <option value="${it.href}">${it.name}</option>
+                                    </g:else>
                                 </g:if>
-                                <g:else>
-                                    <option value="${it.href}">${it.name}</option>
-                                </g:else>
                             </g:each>
                         </select>
                     </div>
@@ -39,7 +41,7 @@
                 </div>
             </div>
             <div class="section-controller-add-bar">
-                <a href="create" class="btn btn-primary btn-cust">Add To ${entityName}</a>
+                <!--<a href="create" class="btn btn-primary btn-cust">Ajouter ${entityName}</a>-->
             </div>
         </div>
 
@@ -51,7 +53,7 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th><input type="checkbox"/></th>
+
                             <th>Titre</th>
                             <th>Type</th>
                             <th>Dernier Mise a jour</th>
@@ -66,7 +68,6 @@
 
                         <g:each in="${annonceList}">
                         <tr class="tr-link" data-href="${createLink(controller:"annonce",action:"show",id: "${it.id}")}">
-                            <td class="td-checkbox"><input type="checkbox"/></td>
                             <td>${it.title}</td>
                             <td>${entityName}</td>
                             <td>${it.lastUpdated}</td>
