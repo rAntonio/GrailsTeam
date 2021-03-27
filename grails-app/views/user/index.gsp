@@ -25,12 +25,12 @@
                         </div>
                         <select class="custom-input-search-select-theme-name">
                             <g:each in="${menuList}">
-                                <g:if test="${it.name ==  entityName }">
-                                    <option selected value="${it.href}">${it.name}</option>
-                                </g:if>
-                                <g:else>
-                                    <option value="${it.href}">${it.name}</option>
-                                </g:else>
+                                    <g:if test="${it.name ==  entityName }">
+                                        <option selected value="${it.href}">${it.name}</option>
+                                    </g:if>
+                                    <g:else>
+                                        <option value="${it.href}">${it.name}</option>
+                                    </g:else>
                             </g:each>
                         </select>
                     </div>
@@ -40,7 +40,7 @@
                 </div>
             </div>
             <div class="section-controller-add-bar">
-                <a href="create" class="btn btn-primary btn-cust">Add To ${entityName}</a>
+                <a href="create" class="btn btn-primary btn-cust">Ajouter ${entityName}</a>
             </div>
         </div>
 
@@ -53,7 +53,6 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th><input type="checkbox"/></th>
                             <th>Utilisateur</th>
                             <th>Expiration</th>
                             <th>Compte</th>
@@ -62,8 +61,7 @@
                     </thead>
                     <tbody>
                         <g:each in="${userList}">
-                            <tr>
-                                <td><input type="checkbox"/></td>
+                            <tr class="tr-link" data-href="${createLink(controller:"user",action:"show",id: "${it.id}")}">
                                 <td>${it.username}</td>
                                 <td>${it.accountExpired} Ariary</td>
                                 <td>${it.accountLocked}</td>
@@ -79,6 +77,9 @@
                         </g:each>
                     </tbody>
                 </table>
+                <div class="pagination">
+                    <g:paginate total="${userCount ?: 0}" />
+                </div>
             </div>
         </div>
 

@@ -135,6 +135,12 @@
     border-color: #16875d;
     color: white;
 }
+.custom-button.custom-button-danger{
+    background-color: #b02919;
+    border-color: #e2392b;
+    color: white;
+}
+
 .section-container .section-contenue{
     background-color: white;
     flex: 1 1 auto;
