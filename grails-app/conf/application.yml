@@ -66,8 +66,8 @@ grails:
     controllers:
         defaultScope: singleton
         upload:
-            maxFileSize: 5000000
-            maxRequestSize: 5000000
+            maxFileSize: 9999999
+            maxRequestSize: 9999999
     converters:
         encoding: UTF-8
     views:
@@ -133,5 +133,5 @@ server:
     port: 8081
 annonces:
     illustrations:
-        path:  "E:/asa/fianarana/Gali/grails-team/grails-team/grails-app/assets/images"
+        path:  "E:/Tix/Cours/M2/Jessi Grails/grails-team/grails-app/assets/images"
         url: "http://localhost:8081/assets/"

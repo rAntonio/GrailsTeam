@@ -10,17 +10,20 @@ $(document).on('click','.tr-link td:not(.td-checkbox)',function(){
     let fullUrl = window.origin + redirect;
     window.location.href=fullUrl;
 });
+
 $(document).on('click','button.validator',function () {
     try {
         let formId = $(this).data("form-id");
         $('#'+formId+" .fields-error").fadeOut();
         validator(formId);
-        //$('#'+formID).submit();
+         $('#'+formId).submit();
     }
     catch (e){
-        console.log("error",e.attribut);
+        //console.log("error",e);
         if(e.attribut){
-            $('#'+attribut.idHtml).parent().find('.fields-error .fields-error-message')[0].html(e.message);
+           // console.log($('#'+e.attribut.idHtml).parent().find('.fields-error .fields-error-message')[0]);
+            $('#'+e.attribut.idHtml).parent().find('.fields-error .fields-error-message')[0].innerHTML=e.message;
+            $('#'+e.attribut.idHtml).parent().children('.fields-error').fadeIn();
         }
     }
 });

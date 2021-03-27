@@ -1,11 +1,16 @@
 package com.mbds.grails
 
+import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
+import org.springframework.beans.factory.annotation.Autowired
+
 import static org.springframework.http.HttpStatus.*
 
 @Secured('ROLE_ADMIN')
 class AnnonceController {
+    @Autowired
+    SpringSecurityService springSecurityService
     CustomAnnonceService customAnnonceService
     AnnonceService annonceService
     MenuService menuService
@@ -36,8 +41,13 @@ class AnnonceController {
                 String fileName = customAnnonceService.uploaderFichier(file.get(i), basePath)
                 annonce.addToIllustrations(new Illustration(filename: fileName))
             }
+            annonce.setEtat(0);
+            annonce.setAuthor(springSecurityService.currentUser as User)
             annonceService.save(annonce)
-        } catch (ValidationException e) {
+        } catch(Exception e){
+            e.printStackTrace()
+        } catch(ValidationException e) {
+            e.printStackTrace()
             respond annonce.errors, view:'create'
             return
         }
@@ -66,6 +76,14 @@ class AnnonceController {
             notFound()
             return
         }
+
+        def file= request.getFiles("file")
+        String basePath = grailsApplication.config.annonces.illustrations.path
+        try {
+            for (int i=0; i<file.size(); i++) {
+                String fileName = customAnnonceService.uploaderFichier(file.get(i), basePath)
+                annonce.addToIllustrations(new Illustration(filename: fileName))
+            }
         /**
          * 1. Récupérer le fichier dans la requête
          * 2. Sauvegarder le fichier localement
@@ -73,9 +91,11 @@ class AnnonceController {
          * 4. Attacher l'illustration nouvellement créée à l'annonce
          */
 
-        try {
             annonceService.save(annonce)
-        } catch (ValidationException e) {
+        } catch(Exception e){
+            e.printStackTrace()
+        }
+        catch (ValidationException e) {
             e.printStackTrace()
             respond annonce.errors, view:'edit'
             return

@@ -30,7 +30,7 @@
             <div class="section-contenue">
                 <div class="section-contenue-form-container">
 
-                    <form id="edit-annonce-form" name="edit-annonce-form" action="${createLink(controller:"annonce",action:"update",id:"${annonce.id}")}" method="POST">
+                    <form id="edit-annonce-form" name="edit-annonce-form" action="${createLink(controller:"annonce",action:"update",id:"${annonce.id}")}" method="POST" enctype="multipart/form-data">
 
                         <div class="section-contenue-input">
                             <label>Identifiant</label>
@@ -59,6 +59,9 @@
                         <div class="section-contenue-input">
                             <label>description</label>
                             <input id="description" name="description" type="text" class="form-contenue-control" value="${annonce.description}"/>
+                            <div class="fields-error">
+                                <p class=" fields-error-message">aaaaaaaaaa</p>
+                            </div>
                             <div class="section-contenue-input-descriptor">
                                 <span class="nb-characters">${annonce.description.length()} charactere</span>
                                 <span >Maximum 256 charactere</span>
@@ -68,6 +71,9 @@
                         <div class="section-contenue-input">
                             <label>prix</label>
                             <input id="prix" name="price" type="text" class="form-contenue-control" value="${annonce.price}"/>
+                            <div class="fields-error">
+                                <p class=" fields-error-message">aaaaaaaaaa</p>
+                            </div>
                             <div class="section-contenue-input-descriptor">
                                 <span class="nb-characters">0 charactere</span>
                                 <span >Maximum 256 charactere</span>
@@ -94,7 +100,7 @@
                                         <span>To Add</span>
                                     </div>
                                     <div class="section-contenue-input-image-items-pictures">
-                                        <input style="display: inline" type="file" name="file" id="file"/>
+                                        <input style="display: inline" type="file" name="file" id="file" multiple/>
                                     </div>
                                 </div>
 
@@ -186,28 +192,25 @@
                     checkValues(oldValue, newValues, tabIdAttribut);
                 }
                 catch (e){
-                    throw ex;
+                    throw e;
                 }
             }
             function checkValues( oldValues , newValues , comparatif){
-                console.log("oldvalues",oldValues);
-                console.log("newValues",newValues);
-                console.log("comparatif",comparatif);
+
                 try{
                     let changes = 0;
                     comparatif.map(item => {
-                        if(!oldValue[item.attribut]){
+                        console.log("item.attribut ",item.attribut);
+                        if(typeof (oldValues[item.attribut]) === typeof undefined ){
 
                             let ex=new Error("Identifiant non valide pour l'oldValue");
                             ex.attribut = item
                             throw ex;
-                            return ;
                         }
-                        if(!newValues[item.attribut]){
+                        if(typeof (newValues[item.attribut]) === typeof undefined ){
                             let ex =new Error("Identifiant non valide pour la newValues")
                             ex.attribut = item
                             throw ex;
-                            return ;
                         }
 
                         if(newValues[item.attribut].trim().length ===0){
@@ -229,41 +232,12 @@
                     }
                 }
                 catch (e){
+                    console.log("error cached",e.attribut);
                     throw e;
                 }
             }
         </script>
-        <a href="#show-annonce" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-        <div class="nav" role="navigation">
-            <ul>
-                <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-                <li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-                <li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-            </ul>
-        </div>
-        <div id="show-annonce" class="content scaffold-show" role="main">
-            <h1><g:message code="default.show.label" args="[entityName]" /></h1>
-            <g:if test="${flash.message}">
-            <div class="message" role="status">${flash.message}</div>
-            </g:if>
-            <div>
-                <p> titre : ${annonce.title} </p>
-                <p> description : ${annonce.description}</p>
-                <p> price : ${annonce.price}</p>
-                <p>Utilisateur : ${annonce.author.username}</p>
-                <p>
-                    <g:each in="${annonce.illustrations}">
-                        <asset:image src="${it.filename}"/>
-                    </g:each>
-                </p>
-            </p>
-            <g:form resource="${this.annonce}" method="DELETE">
-                <fieldset class="buttons">
-                    <g:link class="edit" action="edit" resource="${this.annonce}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
-                    <input class="delete" type="submit" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
-                </fieldset>
-            </g:form>
-        </div>
+
 
     </body>
 </html>
