@@ -3,6 +3,7 @@ package com.mbds.grails
 import grails.converters.JSON
 import grails.converters.XML
 import grails.plugin.springsecurity.annotation.Secured
+import org.hibernate.exception.ConstraintViolationException
 
 import javax.servlet.http.HttpServletResponse
 
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse
 class ApiController {
 
     AnnonceService annonceService
+    UserService userService
 
 //    GET / PUT / PATCH / DELETE -- in progress
     //url : localhost:8081/api/annonce/{id}
@@ -27,7 +29,6 @@ class ApiController {
                 break
         //Postman API : Annonce/Update Annonce (PUT)
             case "PUT":
-                print params.id
                 if (!params.id)
                     return response.status = HttpServletResponse.SC_BAD_REQUEST
                 annonceInstance = Annonce.get(params.id)
@@ -51,36 +52,35 @@ class ApiController {
             case "PATCH":
                 if (!params.id)
                     return response.status = HttpServletResponse.SC_BAD_REQUEST
-                String query = "update Annonce set "
+                String query = "update Annonce set lastUpdated=sysdate()"
                 def paramsMap = [:]
                 def valid = false
                 paramsMap.id = Long.parseLong(params.id)
 
                 //updated field
                     if (request.JSON.title && request.JSON.title != "") {
-                        query += "title=(:title) "
+                        query += ",title=(:title) "
                         paramsMap.title = request.JSON.title
                         valid = true
                     }
                     if (request.JSON.price && request.JSON.price != "") {
-                        query += "price=(:price) "
+                        query += ",price=(:price) "
                         paramsMap.price = request.JSON.price
                         valid = true
                     }
                     if (request.JSON.description && request.JSON.description != "") {
-                        query += "description=(:description) "
+                        query += ",description=(:description) "
                         paramsMap.description = request.JSON.description
                         valid = true
                     }
                     if (request.JSON.author && request.JSON.author != "") {
-                        query += "authorId=(:author) "
+                        query += ",authorId=(:author) "
                         paramsMap.author = request.JSON.author.id
                         valid = true
                     }
                 if(valid) {
-//                    paramsMap.lastUpdated = new Date();
-                    query += "where id=(:id)"
-                    print Annonce.executeUpdate(query, paramsMap)
+                    query += " where id=(:id)"
+                    Annonce.executeUpdate(query, paramsMap)
                     return response.status = HttpServletResponse.SC_NO_CONTENT
                 }
                 return response.status = HttpServletResponse.SC_BAD_REQUEST
@@ -98,7 +98,7 @@ class ApiController {
         return response.status = HttpServletResponse.SC_NOT_ACCEPTABLE
     }
 
-//    GET / POST --tester
+//    GET / POST
     //url : localhost:8081/api/annonces
     def annonces() {
         def annonceInstance;
@@ -143,22 +143,86 @@ class ApiController {
                 if (!userInstance)
                     return response.status = HttpServletResponse.SC_NOT_FOUND
                 serializeData(userInstance, request.getHeader("Accept"));
-            case  "PUT":
+            case "PUT":
+                if (!params.id)
+                    return response.status = HttpServletResponse.SC_BAD_REQUEST
+                userInstance = User.get(params.id)
+                if (request.JSON.username && request.JSON.password && request.JSON.img &&
+                    request.JSON.accountLocked!=null && request.JSON.passwordExpired!=null && request.JSON.accountExpired!=null &&
+                    request.JSON.enabled!=null ) {
+                    userInstance.username = request.JSON.username
+                    userInstance.password = request.JSON.password
+                    userInstance.img = request.JSON.img
+                    userInstance.accountLocked = request.JSON.accountLocked
+                    userInstance.passwordExpired = request.JSON.passwordExpired
+                    userInstance.accountExpired = request.JSON.accountExpired
+                    userInstance.enabled = request.JSON.enabled
+
+                    userService.save(userInstance);
+                    return response.status = HttpServletResponse.SC_OK
+                }
+                return response.status = HttpServletResponse.SC_BAD_REQUEST
+                break;
+            case "PATCH":
                 if (!params.id) return response.status = HttpServletResponse.SC_BAD_REQUEST
                 String query = "update User set "
                 def paramsMap = [:]
                 paramsMap.id = Long.parseLong(params.id)
-                    if (params.username && params.username != "") {
+                def valid = false
+
+                    if (request.JSON.username && request.JSON.username != "") {
                         query += "username=(:username) "
-                        paramsMap.username = params.username
+                        paramsMap.username = request.JSON.username
+                        valid = true
+                    }
+                    if (request.JSON.password && request.JSON.password != "") {
+                        query += "password=(:password) "
+                        paramsMap.password = request.JSON.password
+                        valid = true
+                    }
+                    if (request.JSON.img && request.JSON.img != "") {
+                        query += "img=(:img) "
+                        paramsMap.img = request.JSON.img
+                        valid = true
+                    }
+                    if (request.JSON.accountLocked && request.JSON.accountLocked != "") {
+                        query += "accountLocked=(:accountLocked) "
+                        paramsMap.accountLocked = request.JSON.accountLocked
+                        valid = true
+                    }
+                    if (request.JSON.passwordExpired && request.JSON.passwordExpired != "") {
+                        query += "passwordExpired=(:passwordExpired) "
+                        paramsMap.passwordExpired = request.JSON.passwordExpired
+                        valid = true
+                    }
+                    if (request.JSON.accountExpired && request.JSON.accountExpired != "") {
+                        query += "accountExpired=(:accountExpired) "
+                        paramsMap.accountExpired = request.JSON.accountExpired
+                        valid = true
+                    }
+                    if (request.JSON.enabled && request.JSON.enabled != "") {
+                        query += "enabled=(:enabled) "
+                        paramsMap.enabled = request.JSON.enabled
+                        valid = true
                     }
                 query += "where id=(:id)"
-                User.executeUpdate(query, paramsMap)
-                return response.status = HttpServletResponse.SC_OK
-                break;
-            case "PATCH":
+                if(valid) {
+                    User.executeUpdate(query, paramsMap)
+                    return response.status = HttpServletResponse.SC_OK
+                }
+                return response.status = HttpServletResponse.SC_BAD_REQUEST
                 break;
             case "DELETE":
+                if (!params.id)
+                    return response.status = HttpServletResponse.SC_BAD_REQUEST
+                try {
+                    userService.delete(Long.parseLong(params.id))
+                    return response.status = HttpServletResponse.SC_NO_CONTENT
+                }catch(ConstraintViolationException e){
+                    return response.sendError(520 ,"User cannot be deleted. Please remove all dependencies.")
+                }catch(Exception e){
+                    return response.sendError(520 ,"Error : "+e.getMessage())
+                }
                 break;
             default:
                 return response.status = HttpServletResponse.SC_METHOD_NOT_ALLOWED
@@ -181,10 +245,15 @@ class ApiController {
                 if(request.JSON.password && request.JSON.password != "") userInstance.password = request.JSON.password
                 if(userInstance) {
                     userInstance.save()
-                    if(request.JSON.role && request.JSON.role != "") {
-                        UserRole.create(userInstance, Role.get(request.JSON.role),true)
+                    if(request.JSON.roles && request.JSON.roles != "") {
+                        def RolesId = request.JSON.roles.collect { it.id };
+                        RolesId.each {
+                            def findRole = Role.get(it)
+                            if(findRole)
+                                UserRole.create(userInstance,findRole,true)
+                        }
                     }
-                    return response.status = HttpServletResponse.SC_OK
+                    return response.status = HttpServletResponse.SC_CREATED
                 } else
                     return response.status = HttpServletResponse.SC_NOT_FOUND
                 break;
