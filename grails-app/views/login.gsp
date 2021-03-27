@@ -25,6 +25,9 @@
     <div class="login-body">
         <div class='login-form-container'>
             <form  action="/login/authenticate" method="POST" />
+            <g:if test='${flash.message}'>
+                <div class="alert alert-danger" role="alert">${flash.message}</div>
+            </g:if>
             <div class="login-social-signup">
                 <h1>Se connecter</h1>
                 <div class="btn-container-inline">
