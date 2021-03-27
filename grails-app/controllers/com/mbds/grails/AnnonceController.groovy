@@ -115,12 +115,12 @@ class AnnonceController {
             notFound()
             return
         }
-
-        annonceService.delete(id)
+        annonceService.delete(id);
 
         request.withFormat {
-            form multipartForm {
+            form {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'annonce.label', default: 'Annonce'), id])
+                println("ato ve ");
                 redirect action:"index", method:"GET"
             }
             '*'{ render status: NO_CONTENT }

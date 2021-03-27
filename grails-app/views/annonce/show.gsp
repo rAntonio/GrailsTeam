@@ -149,9 +149,18 @@
                             </g:else>
                         </div>
                         <button class="custom-button custom-button-success validator" data-form-id="edit-annonce-form">Modifier</button>
-                        <div class="notice">
-                            <p>Dernier modification ${annonce.lastUpdated}</p>
-                        </div>
+                          <div class="notice">
+                                <p>Dernier modification ${annonce.lastUpdated}</p>
+                          </div>
+                    </div>
+                    <div class="section-menu-widget status-widget">
+                        <header>
+                            <h2>Gerer</h2>
+                        </header>
+
+                        <form action="${createLink(controller:"annonce",action:"delete",id:"${annonce.id}")}" method="DELETE">
+                            <button class="custom-button custom-button-danger" data-form-id="edit-annonce-form">Supprimer</button>
+                        </form>
                     </div>
                 </div>
             </div>
