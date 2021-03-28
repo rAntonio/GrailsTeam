@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired
 
 import static org.springframework.http.HttpStatus.*
 
-@Secured('ROLE_ADMIN')
+@Secured('ROLE_ADMIN,ROLE_MODO')
 class AnnonceController {
     @Autowired
     SpringSecurityService springSecurityService
