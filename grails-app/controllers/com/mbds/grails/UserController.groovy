@@ -1,15 +1,21 @@
 package com.mbds.grails
 
+import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
+import org.springframework.beans.factory.annotation.Autowired
+
 import static org.springframework.http.HttpStatus.*
 
 @Secured('ROLE_ADMIN')
 class UserController {
+
+    @Autowired
+    SpringSecurityService springSecurityService
+
     CustomeUserService customeUserService
     UserService userService
-
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+//    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -44,7 +50,6 @@ class UserController {
             respond user.errors, view:'create'
             return
         }
-
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), user.id])
@@ -58,37 +63,39 @@ class UserController {
         respond userService.get(id)
     }
 
-    def update() {
+    def update(  ) {
         def user = User.get(params.id)
-/*
-        print params.username
-        print params.passwordExpired
-        print params.accountExpired
-        print params.enabled
-*/
-
         user.username = params.username
-        user.passwordExpired = params.passwordExpired
-        user.accountLocked = params.accountLocked
-        user.accountExpired = params.accountExpired
-        user.enabled = params.enabled
+        user.passwordExpired =  Boolean.parseBoolean(params.passwordExpired)
+        user.accountLocked = Boolean.parseBoolean(params.accountLocked)
+        user.accountExpired = Boolean.parseBoolean(params.accountExpired)
+        user.enabled = Boolean.parseBoolean(params.enabled)
 
+        /*
+        if( params.newPassword != null  ){
+            println user.password
+            println params.newPassword
+            user.password =  springSecurityService.encodePassword(params.newPassword)
+            println( user.password )
+        }
+        */
+        String fileName = user.img
         if (user == null) {
             notFound()
             return
         }
-
         try {
             def file= request.getFiles("image")
-            String fileName = user.img
             if(  file != null ){
                 String basePath = grailsApplication.config.annonces.illustrations.path
                 for (int i=0; i<file.size(); i++) {
                     fileName = customeUserService.uploaderFichier(file.get(i), basePath)
                 }
+                if( fileName == null ){
+                    fileName = user.img
+                }
             }
             user.img = fileName
-
             userService.save(user)
         }catch(Exception e){
             e.printStackTrace()
@@ -112,16 +119,8 @@ class UserController {
             notFound()
             return
         }
-
         userService.delete(id)
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'user.label', default: 'User'), id])
-                redirect action:"index", method:"GET"
-            }
-            '*'{ render status: NO_CONTENT }
-        }
+        redirect action:"index", method:"GET"
     }
 
     protected void notFound() {

@@ -31,51 +31,54 @@
         <div class="section-contenue-form-container">
 
             <form id="edit-user-form" name="edit-user-form" action="${createLink(controller:"user",action:"update",id:"${user.id}")}" method="POST" enctype="multipart/form-data">
-
                 <div class="section-contenue-input">
                     <label>Identifiant</label>
                     <input id="id" type="text" class="form-contenue-control" value="${user.id}" disabled readonly/>
                     <div class="fields-error">
-                        <p class=" fields-error-message">Id Invalid</p>
+                        <p class=" fields-error-message">aaaaaaaaaa</p>
+                    </div>
+                    <div class="section-contenue-input-descriptor">
+                        <span class="nb-characters">0 charactere</span>
+                        <span >Maximum 256 charactere</span>
                     </div>
                 </div>
 
                 <div class="section-contenue-input">
                     <label>Utilisateur</label>
-                    <input id="username" type="text" class="form-contenue-control" value="${user.username}" />
+                    <input id="username" name="username" type="text" class="form-contenue-control" value="${user.username}" />
                     <div class="fields-error">
                         <p class=" fields-error-message">Erreur</p>
                     </div>
                     <div>
+                        <span class="nb-characters">${user.username.length()} charactere</span>
                         <span >Maximum 256 charactere</span>
                     </div>
                 </div>
-
 
                 <div class="section-contenue-input">
                     <label for="passwordExpired">Password Expired</label>
                     <select id="passwordExpired" name="passwordExpired" type="text" class="form-contenue-control">
                         <g:if test="${user.enabled == true}">
-                            <option value="false" selected>Désactivé</option>
-                            <option value="true">Activé</option>
+                            <option value="true" selected>Activé</option>
+                            <option value="false" >Désactivé</option>
                         </g:if>
                         <g:else>
-                            <option value="false" >Désactivé</option>
-                            <option value="true" selected>Activé</option>
+                            <option value="true" >Activé</option>
+                            <option value="false" selected>Désactivé</option>
                         </g:else>
                     </select>
                 </div>
 
                 <div class="section-contenue-input">
-                    <label for="accountExpired">Enabled</label>
+                    <label for="accountExpired">Account Expired</label>
                     <select id="accountExpired" name="accountExpired"  class="form-contenue-control">
                         <g:if test="${user.enabled == true}">
-                            <option value="false" selected>Désactivé</option>
-                            <option value="true">Activé</option>
+                            <option value="true" selected>Activé</option>
+                            <option value="false">Désactivé</option>
                         </g:if>
                         <g:else>
-                            <option value="false" >Désactivé</option>
-                            <option value="true" selected>Activé</option>
+                            <option value="true" >Activé</option>
+                            <option value="false" selected >Désactivé</option>
                         </g:else>
                     </select>
                 </div>
@@ -84,12 +87,12 @@
                     <label for="accountLocked">Account Locked</label>
                     <select id="accountLocked" name="accountLocked" type="text" class="form-contenue-control">
                         <g:if test="${user.accountLocked == true}">
-                            <option value="false" selected>Désactivé</option>
-                            <option value="true">Activé</option>
+                            <option value="true" selected>Activé</option>
+                            <option value="false" >Désactivé</option>
                         </g:if>
                         <g:else>
-                            <option value="false" >Désactivé</option>
-                            <option value="true" selected>Activé</option>
+                            <option value="true" >Activé</option>
+                            <option value="false" selected >Désactivé</option>
                         </g:else>
                     </select>
                 </div>
@@ -97,12 +100,12 @@
                     <label for="enabled">Enabled</label>
                     <select id="enabled" name="enabled" type="text" class="form-contenue-control">
                         <g:if test="${user.enabled == true}">
-                            <option value="false" selected>Désactivé</option>
-                            <option value="true">Activé</option>
+                            <option value="true" selected>Activé</option>
+                            <option value="false">Désactivé</option>
                         </g:if>
                         <g:else>
-                            <option value="false" >Désactivé</option>
-                            <option value="true" selected>Activé</option>
+                            <option value="true" >Activé</option>
+                            <option value="false" selected>Désactivé</option>
                         </g:else>
                     </select>
                 </div>
@@ -120,7 +123,6 @@
                             <div class="section-contenue-input-image-items-pictures">
                                 <asset:image src="${user.img}"/>
                             </div>
-
                         </div>
 
                         <div class="section-contenue-input-image-items">
@@ -128,7 +130,7 @@
                                 <span>To Add</span>
                             </div>
                             <div class="section-contenue-input-image-items-pictures">
-                                <input style="display: inline" type="file" name="file" id="file" multiple/>
+                                <input style="display: inline" type="file" name="image" id="file" multiple/>
                             </div>
                         </div>
 
@@ -180,6 +182,10 @@
                     attribut: "id"
                 },
                 {
+                    idHtml: "username",
+                    attribut: "username"
+                },
+                {
                     idHtml: "passwordExpired",
                     attribut: "passwordExpired"
                 },                {
@@ -205,6 +211,7 @@
             throw e;
         }
         */
+
     }
     function checkValues( oldValues , newValues , comparatif){
 
