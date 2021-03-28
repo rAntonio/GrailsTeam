@@ -11,18 +11,14 @@
     </head>
     <body>
         <div class="wrapper">
-            <sec:ifLoggedIn>
-                <ul class="navbar-nav ml-auto ml-md-0">
-                    <li class="nav-item dropdown">
-                        <g:form controller="logout">
-                            <g:submitButton class="dropdown-item btn-dark" name="Submit" value="Déconnexion"
-                            />
-                        </g:form>
-                    </li>
-                </ul>
-            </sec:ifLoggedIn>
+
             <div class="banner">
-                a
+                <sec:ifLoggedIn>
+                    <g:form controller="logout">
+                        <g:submitButton class="btn btn-primary btn-logout" name="Submit" value="Déconnexion"
+                        />
+                    </g:form>
+                </sec:ifLoggedIn>
             </div>
 
 
