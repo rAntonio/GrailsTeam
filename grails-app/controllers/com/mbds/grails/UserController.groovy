@@ -30,7 +30,7 @@ class UserController {
             return
         }
         try {
-            def file= request.getFiles("imgage")
+            def file= request.getFiles("image")
             String fileName = "profil.png"
             if(  file != null ){
                 String basePath = grailsApplication.config.annonces.illustrations.path
@@ -58,19 +58,46 @@ class UserController {
         respond userService.get(id)
     }
 
-    def update(User user) {
+    def update() {
+        def user = User.get(params.id)
+/*
+        print params.username
+        print params.passwordExpired
+        print params.accountExpired
+        print params.enabled
+*/
+
+        user.username = params.username
+        user.passwordExpired = params.passwordExpired
+        user.accountLocked = params.accountLocked
+        user.accountExpired = params.accountExpired
+        user.enabled = params.enabled
+
         if (user == null) {
             notFound()
             return
         }
 
         try {
+            def file= request.getFiles("image")
+            String fileName = user.img
+            if(  file != null ){
+                String basePath = grailsApplication.config.annonces.illustrations.path
+                for (int i=0; i<file.size(); i++) {
+                    fileName = customeUserService.uploaderFichier(file.get(i), basePath)
+                }
+            }
+            user.img = fileName
+
             userService.save(user)
-        } catch (ValidationException e) {
+        }catch(Exception e){
+            e.printStackTrace()
+        }
+        catch (ValidationException e) {
+            e.printStackTrace()
             respond user.errors, view:'edit'
             return
         }
-
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'user.label', default: 'User'), user.id])
