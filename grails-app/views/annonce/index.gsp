@@ -20,7 +20,7 @@
                 <div class="custom-input-search">
                     <div class="custom-input-search-select-theme">
                         <div class="custom-input-search-select-theme-title">
-                            <span>Content Type</span>
+                            <span>Contenu</span>
                         </div>
                         <select class="custom-input-search-select-theme-name">
                             <g:each in="${menuList}">
@@ -36,7 +36,7 @@
                         </select>
                     </div>
 
-                    <input type="text" name="search_text" class="search-control" placeholder="Type to search for entries"/>
+                    <input type="text" name="search_text" class="search-control" placeholder="Taper pour rechercher quelque chose"/>
 
                 </div>
             </div>

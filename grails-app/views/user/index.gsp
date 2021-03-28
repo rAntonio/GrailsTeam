@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta name="layout" content="custom" />
-        <g:set var="entityName" value="${message(code: 'user.label', default: 'User')}" />
+        <g:set var="entityName" value="${message(code: 'user.label', default: 'Utilisateur')}" />
         <title><g:message code="default.list.label" args="[entityName]" /></title>
         <asset:stylesheet src="section-container.css"/>
         <asset:stylesheet src="list.css"/>
@@ -21,7 +21,7 @@
                 <div class="custom-input-search">
                     <div class="custom-input-search-select-theme">
                         <div class="custom-input-search-select-theme-title">
-                            <span>Content Type</span>
+                            <span>Contenu</span>
                         </div>
                         <select class="custom-input-search-select-theme-name">
                             <g:each in="${menuList}">
@@ -35,7 +35,7 @@
                         </select>
                     </div>
 
-                    <input type="text" name="search_text" class="search-control" placeholder="Type to search for entries"/>
+                    <input type="text" name="search_text" class="search-control" placeholder="Taper pour rechercher quelque chose"/>
 
                 </div>
             </div>
