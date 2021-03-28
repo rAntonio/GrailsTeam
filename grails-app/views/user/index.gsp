@@ -46,7 +46,6 @@
 
 
         <div class="section-container">
-            <div class="section-menu">a</div>
 
             <div class="section-contenue">
                 <span class="nombre-element">${userCount} item trouvé(s)</span>

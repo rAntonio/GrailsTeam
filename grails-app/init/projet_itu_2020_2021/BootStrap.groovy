@@ -22,7 +22,7 @@ class BootStrap {
 
         def annonceMenu = new Menu(name : "Annonce", href: "/Annonce/").save()
        // def illustrationMenu = new Menu(name : "Illustrations", href: "/Illustration/").save()
-        def userMenu = new Menu(name : "User", href: "/User/").save()
+        def userMenu = new Menu(name : "Utilisateur", href: "/User/").save()
 
         UserRole.create(adminUser, adminRole, true)
         UserRole.create(modUser, modRole, true)
