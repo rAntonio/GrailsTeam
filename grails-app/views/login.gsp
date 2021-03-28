@@ -11,6 +11,7 @@
     <head>
         <title>Grail's Network Authentification</title>
         <asset:stylesheet src="bootstrap.min.css"/>
+        <asset:stylesheet src="bootstrap.css"/>
         <asset:stylesheet src="all.min.css"/>
         <asset:stylesheet src="login.css"/>
         <asset:javascript src="jquery-3.5.1.js"/>
