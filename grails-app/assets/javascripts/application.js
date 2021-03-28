@@ -19,3 +19,12 @@ if (typeof jQuery !== 'undefined') {
         });
     })(jQuery);
 }
+
+$(document).ready(function () {
+    $('button.btn-back').click(function (e) {
+        // prevent default behavior
+        e.preventDefault();
+        // Go back
+        window.history.back();
+    });
+});
